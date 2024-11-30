@@ -1,0 +1,15 @@
+{
+  "name": "advent-of-code-2024",
+  "devDependencies": {
+    "@linusljung/generate-lajnz": "^0.0.7",
+    "@types/bun": "latest",
+    "@types/yargs": "^17.0.33"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "eol": "^0.10.0",
+    "yargs": "^17.7.2"
+  }
+}
