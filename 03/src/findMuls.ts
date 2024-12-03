@@ -1,3 +1,5 @@
+import { findOperations } from 'findOperations';
+
 export function findMuls(input: string): string[] {
-  return [...input.matchAll(/mul\(\-?\d+,\-?\d+\)/g)].map((match) => match[0]);
+  return findOperations(input).filter((operation) => operation !== 'do()' && operation !== "don't()");
 }
