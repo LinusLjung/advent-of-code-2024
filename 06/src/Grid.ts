@@ -1,13 +1,15 @@
 import assert from 'assert';
-export type Cell = [row: number, column: number];
+import type { Cell, Direction } from 'types';
 
 const directions = ['^', '>', 'v', '<'] as const;
-
-type Direction = (typeof directions)[number];
 
 class Grid {
   grid: string[][];
   guard: {
+    position: Cell;
+    direction: Direction;
+  };
+  originalGuard: {
     position: Cell;
     direction: Direction;
   };
@@ -21,6 +23,10 @@ class Grid {
       direction: this.getCell(guardPosition) as Direction,
       position: guardPosition,
     };
+
+    this.originalGuard = { ...this.guard, position: [...this.guard.position] };
+
+    this.setCell(this.guard.position, '.');
   }
 
   findGuard(): Cell {
@@ -42,8 +48,6 @@ class Grid {
   }
 
   moveGuard(cell: Cell) {
-    this.setCell(this.guard.position, '.');
-    this.setCell(cell, this.guard.direction);
     this.guard.position = cell;
   }
 
@@ -53,6 +57,11 @@ class Grid {
 
   setCell([row, column]: Cell, value: string) {
     this.grid[row][column] = value;
+  }
+
+  resetGuard() {
+    this.guard.direction = this.originalGuard.direction;
+    this.guard.position = [...this.originalGuard.position];
   }
 }
 
