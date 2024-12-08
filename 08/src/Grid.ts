@@ -8,6 +8,14 @@ class Grid {
     this.grid = input.split('\n').map((row) => row.split(''));
   }
 
+  get width() {
+    return this.grid[0].length;
+  }
+
+  get height() {
+    return this.grid.length;
+  }
+
   getCell([row, column]: Cell) {
     return this.grid[row]?.[column];
   }
