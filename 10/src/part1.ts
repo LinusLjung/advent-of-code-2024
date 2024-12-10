@@ -1,13 +1,5 @@
+import { getAdjecentCells } from 'getAdjecentCells';
 import Grid, { type Cell } from 'Grid';
-
-function getAdjecentCells(start: Cell) {
-  return [
-    [-1, 0],
-    [1, 0],
-    [0, -1],
-    [0, 1],
-  ].map<Cell>(([r, c]) => [start[0] + r, start[1] + c]);
-}
 
 function walkUp(start: Cell, grid: Grid): Cell[] {
   const currentLevel = grid.getCell(start);
