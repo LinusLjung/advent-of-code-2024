@@ -4,6 +4,7 @@ type Item<T> = {
   prev: Item<T>;
   next: Item<T>;
   value: T;
+  multiplier: number;
 } | null;
 
 class LinkedList<T> {
@@ -21,6 +22,7 @@ class LinkedList<T> {
         value,
         next: null,
         prev: null,
+        multiplier: 1,
       };
 
       return;
@@ -37,6 +39,7 @@ class LinkedList<T> {
       value,
       next: null,
       prev: item,
+      multiplier: 1,
     };
   }
 
