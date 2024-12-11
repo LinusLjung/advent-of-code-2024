@@ -14,6 +14,7 @@ export function tick(list: LinkedList<number>) {
         next: item,
         prev: item.prev,
         value: Number(stringValue.slice(0, stringValue.length / 2)),
+        multiplier: item.multiplier,
       };
 
       if (newItem.prev) {
