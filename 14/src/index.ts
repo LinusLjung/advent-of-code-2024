@@ -11,5 +11,5 @@ if (!part || part === 1) {
 }
 
 if (!part || part === 2) {
-  console.log(part2(input));
+  part2(input);
 }
