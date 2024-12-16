@@ -8,6 +8,7 @@ export function pathfind(from: Reindeer, to: Cell, grid: Grid) {
   const visited = new Map<string, number>();
 
   let best: Reindeer | null = null;
+  let winners: Reindeer[] = [];
 
   while (queue.length) {
     const cell = queue.pop()!;
@@ -20,7 +21,7 @@ export function pathfind(from: Reindeer, to: Cell, grid: Grid) {
       continue;
     }
 
-    if ((visited.get(cell.position.toString()) ?? Infinity) < cell.cost) {
+    if (cell.prevDirection !== cell.direction && (visited.get(cell.position.toString()) ?? Infinity) < cell.cost) {
       continue;
     }
 
@@ -31,8 +32,15 @@ export function pathfind(from: Reindeer, to: Cell, grid: Grid) {
     visited.set(cell.position.toString(), cell.cost);
 
     if (cell.position.toString() === to.toString()) {
+      if (best && best.cost < cell.cost) {
+        continue;
+      }
+
       if (!best || best.cost > cell.cost) {
         best = cell;
+        winners = [cell];
+      } else if (best.cost === cell.cost) {
+        winners.push(cell);
       }
     }
 
@@ -43,6 +51,7 @@ export function pathfind(from: Reindeer, to: Cell, grid: Grid) {
         position: adjacentCell,
         path: cell.path.slice(),
         direction,
+        prevDirection: cell.direction,
         cost: cell.cost + 1 + (direction === cell.direction ? 0 : 1000),
       };
 
@@ -50,5 +59,5 @@ export function pathfind(from: Reindeer, to: Cell, grid: Grid) {
     }
   }
 
-  return best;
+  return winners;
 }
