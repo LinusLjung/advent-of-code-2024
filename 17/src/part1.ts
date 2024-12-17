@@ -1,59 +1,8 @@
-type Registers = Record<'a' | 'b' | 'c', number>;
+import { adv, bdv, bst, bxc, bxl, cdv, jnz, out } from 'instructions';
+import { parse } from 'parse';
+import type { Registers } from 'types';
 
-function getCombo(operand: number, registers: Registers) {
-  if (operand <= 3) {
-    return operand;
-  }
-
-  return registers[['a', 'b', 'c'][operand - 4] as keyof Registers];
-}
-
-function adv(operand: number, registers: Registers) {
-  return (registers.a = Math.floor(registers.a / Math.pow(2, getCombo(operand, registers))));
-}
-
-function bxl(operand: number, registers: Registers) {
-  return (registers.b = registers.b ^ operand);
-}
-
-function bst(operand: number, registers: Registers) {
-  return (registers.b = getCombo(operand, registers) % 8);
-}
-
-function jnz(operand: number, registers: Registers) {
-  if (registers.a === 0) {
-    return;
-  }
-
-  return operand;
-}
-
-function bxc(registers: Registers) {
-  registers.b = registers.b ^ registers.c;
-}
-
-function out(operand: number, registers: Registers) {
-  return getCombo(operand, registers) % 8;
-}
-
-function bdv(operand: number, registers: Registers) {
-  return (registers.b = Math.floor(registers.a / Math.pow(2, getCombo(operand, registers))));
-}
-
-function cdv(operand: number, registers: Registers) {
-  return (registers.c = Math.floor(registers.a / Math.pow(2, getCombo(operand, registers))));
-}
-
-export function part1(input: string) {
-  const [registerInput, programInput] = input.split('\n\n');
-  const registers = registerInput.split('\n').reduce<Registers>(
-    (acc, curr, i) => {
-      return { ...acc, [['a', 'b', 'c'][i]]: Number(curr.split(' ').at(-1)) };
-    },
-    { a: 0, b: 0, c: 0 }
-  );
-  const program = programInput.split(' ')[1].split(',').map(Number);
-
+function run(registers: Registers, program: number[]) {
   let pointer = 0;
   const output: number[] = [];
 
@@ -105,4 +54,10 @@ export function part1(input: string) {
   }
 
   return output.toString();
+}
+
+export function part1(input: string) {
+  const [registers, program] = parse(input);
+
+  return 
 }
