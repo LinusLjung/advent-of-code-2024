@@ -15,5 +15,9 @@ if (!part || part === 1) {
 }
 
 if (!part || part === 2) {
+  if (isExample) {
+    console.log(part2(input, 7, 7, 12));
+    process.exit();
+  }
   console.log(part2(input));
 }

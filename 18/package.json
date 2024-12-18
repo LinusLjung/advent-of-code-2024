@@ -6,7 +6,7 @@
     "part1": "bun src/index.ts ./input.txt --part 1",
     "part2": "bun src/index.ts ./input.txt --part 2",
     "part1:example": "bun src/index.ts ./example-input.txt --part 1 --isExample",
-    "part2:example": "bun src/index.ts ./example-input.txt --part 2",
+    "part2:example": "bun src/index.ts ./example-input.txt --part 2 --isExample",
     "example": "bun src/index.ts ./example-input.txt"
   },
   "author": "",

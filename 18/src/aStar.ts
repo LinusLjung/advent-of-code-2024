@@ -10,6 +10,17 @@ function getEstimatedDistance(start: Cell, goal: Cell) {
   return xDiff + yDiff;
 }
 
+function reconstructPath(cameFrom: Record<string, string>, cell: string) {
+  const path: string[] = [cell];
+
+  while (cell in cameFrom) {
+    cell = cameFrom[cell.toString()];
+    path.push(cell);
+  }
+
+  return path.toReversed();
+}
+
 export function aStar(start: Cell, goal: Cell, grid: Grid) {
   const gScore = { [start.toString()]: 0 };
   const fScore = { [start.toString()]: getEstimatedDistance(start, goal) };
@@ -22,7 +33,7 @@ export function aStar(start: Cell, goal: Cell, grid: Grid) {
     const currentCell = heap.pop()!;
 
     if (currentCell === goal.toString()) {
-      return gScore[currentCell];
+      return { score: gScore[currentCell], path: reconstructPath(cameFrom, currentCell) };
     }
 
     for (const adjacentCell of getAdjacentCells(currentCell.split(',').map(Number) as Cell)) {
