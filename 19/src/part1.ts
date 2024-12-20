@@ -1,28 +1,8 @@
-function solve(design: string, towels: string[]) {
-  if (!design.length || !towels.length) {
-    return [];
-  }
-
-  for (const towel of towels) {
-    if (design === towel) {
-      return true;
-    }
-
-    if (design.startsWith(towel)) {
-      if (solve(design.slice(towel.length), towels)) {
-        return true;
-      }
-      continue;
-    }
-  }
-
-  return false;
-}
+import { parseInput } from "parseInput";
+import { solve } from "solve";
 
 export function part1(input: string) {
-  const [towelsInput, designsInput] = input.split('\n\n');
-  const towels = towelsInput.split(', ');
-  const designs = designsInput.split('\n');
+  const [towels, designs] = parseInput(input);
 
   let possibleSolves = 0;
 
