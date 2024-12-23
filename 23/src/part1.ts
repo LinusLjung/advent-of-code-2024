@@ -1,3 +1,5 @@
+import { getNodesWithConnections } from 'getNodesWithConnections';
+
 function findTriples(nodes: Record<string, Set<string>>) {
   const triples: string[][] = [];
 
@@ -19,23 +21,7 @@ function findTriples(nodes: Record<string, Set<string>>) {
 }
 
 export function part1(input: string) {
-  const nodes: Record<string, Set<string>> = {};
-  const connections = input.split('\n');
-
-  for (const connection of connections) {
-    const [a, b] = connection.split('-') as [string, string];
-
-    if (!nodes[a]) {
-      nodes[a] = new Set<string>();
-    }
-    if (!nodes[b]) {
-      nodes[b] = new Set<string>();
-    }
-
-    nodes[a].add(b);
-    nodes[b].add(a);
-  }
-
+  const nodes = getNodesWithConnections(input);
   const triples = findTriples(nodes);
 
   return triples.filter((triple) => triple.split('-').some((node) => node[0] === 't')).length;
